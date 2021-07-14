@@ -10,13 +10,15 @@ import { AuthService } from './services/auth.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
 import { AuthInterceptor } from './services/auth-interceptor.service';
+import { AddWorkoutComponent } from './add-workout/add-workout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AddWorkoutComponent
   ],
   imports: [
     BrowserModule,

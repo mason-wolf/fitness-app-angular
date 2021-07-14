@@ -1,1 +1,8 @@
-hello!
+<div class="container" style="margin-top:150px;">
+    <div class="col-lg-4 offset-lg-4">
+        <div class="row justify-content-center" *ngIf="noWorkouts"> 
+            <h2> {{ noWorkouts}}</h2>
+        </div>
+        <button type="button" routerLink="/add-workout" class="btn btn-primary">Add Workout</button>
+    </div>
+</div>

@@ -1,1 +1,0 @@
-xcopy /s C:\Users\Mason\Downloads\fitness-app\fitness-app\dist C:\Users\Mason\source\repos\spring-jwt-api\src\main\resources\static

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { User } from '../user.model';
+import { User } from '../models/user.model';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -25,7 +25,8 @@ export class AuthService {
     return this.httpClient.post<any>(this.baseUrl + 'login', {userName: user, password :password }, { headers })
     .pipe(catchError(this.handleError),
       map(userData => {
-        sessionStorage.setItem("username", "user");
+        sessionStorage.setItem("username", user);
+        sessionStorage.setItem("userId", userData.userId);
         let token = "Bearer " + userData.token;
         sessionStorage.setItem("token", token);
         sessionStorage.setItem("roles", JSON.stringify(userData.roles));
@@ -50,9 +51,13 @@ export class AuthService {
       message = "Network Error";
     }
     else {
-      message = httpError.error.message;
-      console.error(httpError.status);
-      console.error(httpError.error);
+  //    message = httpError.error.message;
+      if (httpError.status == 401) {
+        message = "Incorrect username or password.";
+        console.error("Unauthorized");
+      }
+  //    console.error(httpError.status);
+  //    console.error(httpError.error);
     }
     
     return throwError(message);

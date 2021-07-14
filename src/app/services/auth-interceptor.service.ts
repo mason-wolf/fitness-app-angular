@@ -8,14 +8,13 @@ export class AuthInterceptor implements HttpInterceptor{
 
         let clonedRequest = request;
         if (sessionStorage.getItem('username') && sessionStorage.getItem('token')) {
-            //console.log('With Token --- ' + sessionStorage.getItem('token'));
-        const clonedRequest = request.clone({
-           headers: new HttpHeaders({
-                 Authorization: JSON.parse(sessionStorage.getItem('token') || '{}'),
-                 "Content-Type": "application/json"
-               })
+            clonedRequest = request.clone({
+                setHeaders: {
+                    Authorization: sessionStorage.getItem('token')
+                  }
             });
         }
+        
         return next.handle(clonedRequest);
     }
 }
