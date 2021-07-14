@@ -1,0 +1,11 @@
+
+echo Building..
+ng build
+
+echo Cleaning up deployment folder..
+rm ../static/*
+
+echo Deploying app
+cp -a dist/fitness-app/. ../static
+
+echo deployed
