@@ -3,12 +3,15 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Add Workout</li>
+              <li class="breadcrumb-item active" aria-current="page">View Workout</li>
             </ol>
           </nav>
         <div class="row justify-content-center"> 
-            <h2>Add Workout</h2><br><br>
-            <form (ngSubmit)="addWorkout()">
+            <div class="alert alert-success" role="alert" *ngIf="updated">
+                Workout updated!
+              </div>
+            <h2>{{ title }}</h2><br><br>
+            <form (ngSubmit)="saveWorkout()">
                 <div class="form-group">
                   <label for="title">Title</label>
                   <input type="text" class="form-control" [(ngModel)]="title" name="title"><br>
@@ -32,7 +35,7 @@
                         </tbody>
                     </table>
                     <button type="button" (click)="addExercise()" class="btn btn-primary" style="float:right;">Add Exercise</button><br>
-                    <button type="button" (click)="addWorkout()" class="btn btn-success">Add Workout</button>
+                    <button type="button" (click)="saveWorkout()" class="btn btn-success">Save Workout</button>
                 </div><br>
                 <div class="alert alert-warning" *ngIf="errorMessage">
                     {{ errorMessage }}

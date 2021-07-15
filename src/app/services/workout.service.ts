@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Exercise } from '../models/exercise.model';
 import { Workout } from '../models/workout.model';
 
 const headers = new HttpHeaders().set('Content-Type', 'application/json');
@@ -21,11 +22,19 @@ export class WorkoutService {
   }
 
   getWorkoutById(workoutId : number) : Observable<Workout> {
-    return this.httpClient.get<Workout>(this.apiUrl + '/display/' + workoutId);
+    return this.httpClient.get<Workout>(this.apiUrl + '/view?workoutId=' + workoutId);
   }
 
   getWorkoutsByUserId(userId: number) : Observable<Workout[]> {
     return this.httpClient.get<Workout[]>(this.apiUrl + "/" + userId);
+  }
+
+  deleteExercise(exerciseId: number) : Observable<any> {
+    return this.httpClient.delete(this.apiUrl + "/exercises/" + exerciseId);
+  }
+
+  updateWorkout(workout : Workout) : Observable<any> {
+    return this.httpClient.put(this.apiUrl + "/", workout);
   }
 }
 

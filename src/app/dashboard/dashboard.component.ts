@@ -13,16 +13,25 @@ export class DashboardComponent implements OnInit {
 
   userId = sessionStorage.getItem("userId");
   userWorkouts : Workout[];
-  noWorkouts : string;
+  showWorkouts : boolean;
 
-  constructor(private workoutService : WorkoutService, 
-    private httpClient : HttpClient, private authService : AuthService) {
+  constructor(
+    private workoutService : WorkoutService, 
+    private httpClient : HttpClient, 
+    private authService : AuthService) {
 
       this.workoutService.getWorkoutsByUserId(this.userId as unknown as number).subscribe(data => {
-        this.userWorkouts = data;
-
-        if (this.userWorkouts.length < 2) {
-          this.noWorkouts = "No workouts yet!";
+        if (data != null) {
+          this.userWorkouts = data;
+          if (this.userWorkouts.length == 0) {
+            this.showWorkouts = false;
+          }
+          else {
+            this.showWorkouts = true;
+          }
+        }
+        else {
+          console.error("Empty data set.");
         }
       });
   }

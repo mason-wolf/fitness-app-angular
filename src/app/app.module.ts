@@ -11,6 +11,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
 import { AuthInterceptor } from './services/auth-interceptor.service';
 import { AddWorkoutComponent } from './add-workout/add-workout.component';
+import { ViewWorkoutComponent } from './view-workout/view-workout.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AddWorkoutComponent } from './add-workout/add-workout.component';
     DashboardComponent,
     LoginComponent,
     RegisterComponent,
-    AddWorkoutComponent
+    AddWorkoutComponent,
+    ViewWorkoutComponent
   ],
   imports: [
     BrowserModule,
