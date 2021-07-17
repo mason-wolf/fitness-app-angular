@@ -12,6 +12,17 @@ import { RegisterComponent } from './register/register.component';
 import { AuthInterceptor } from './services/auth-interceptor.service';
 import { AddWorkoutComponent } from './add-workout/add-workout.component';
 import { ViewWorkoutComponent } from './view-workout/view-workout.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DeleteConfirmationComponent } from './view-workout/delete-confirmation/delete-confirmation.component';
+import { FullCalendarModule } from '@fullcalendar/angular'; 
+import dayGridPlugin from '@fullcalendar/daygrid'; 
+import interactionPlugin from '@fullcalendar/interaction';
+
+FullCalendarModule.registerPlugins([
+  dayGridPlugin,
+  interactionPlugin
+]);
 
 @NgModule({
   declarations: [
@@ -20,7 +31,8 @@ import { ViewWorkoutComponent } from './view-workout/view-workout.component';
     LoginComponent,
     RegisterComponent,
     AddWorkoutComponent,
-    ViewWorkoutComponent
+    ViewWorkoutComponent,
+    DeleteConfirmationComponent
   ],
   imports: [
     BrowserModule,
@@ -28,6 +40,9 @@ import { ViewWorkoutComponent } from './view-workout/view-workout.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    FullCalendarModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true}],
   bootstrap: [AppComponent]

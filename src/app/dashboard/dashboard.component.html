@@ -7,7 +7,12 @@
                 <li class="list-group-item"><a routerLink="/add-workout">Add Workout</a></li>
             </ul>
         </div>
-        <div class="col-6" style="border:1px solid #ccc;padding:2em;">
+        <div class="col-6">
+            <full-calendar [options]="calendarOptions"></full-calendar>
+        </div>
+
+        <!--
+        <div class="col-6" style="border:1px solid #ccc;padding:2em;" *ngIf="!loading; else showLoading">
             <div *ngIf="!showWorkouts; else displayWorkouts"> 
                 <h2>No workouts yet!</h2><br>
                 <button type="button" routerLink="/add-workout" class="btn btn-primary">Add Workout</button>
@@ -18,6 +23,10 @@
                 </div>
             </ng-template>
         </div>
+        <ng-template #showLoading>
+            Loading..
+        </ng-template>
+    -->
     </div>
 
 </div>

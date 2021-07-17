@@ -1,8 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { Exercise } from '../models/exercise.model';
 import { Workout } from '../models/workout.model';
 
 const headers = new HttpHeaders().set('Content-Type', 'application/json');
@@ -35,6 +34,16 @@ export class WorkoutService {
 
   updateWorkout(workout : Workout) : Observable<any> {
     return this.httpClient.put(this.apiUrl + "/", workout);
+  }
+
+  deleteWorkout(workout : Workout) : Observable<any> {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: workout,
+    };
+    return this.httpClient.delete(this.apiUrl + "/", options);
   }
 }
 

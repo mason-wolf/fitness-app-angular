@@ -23,7 +23,7 @@ export class AuthInterceptor implements HttpInterceptor{
         return next.handle(clonedRequest)
         .pipe(
             catchError((error) => {
-                if (error === 401) {
+                if (error.status === 401) {
                     this.router.navigate(["/login"]);
                 }
                 return of(error);

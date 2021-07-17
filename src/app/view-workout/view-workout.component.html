@@ -35,13 +35,16 @@
                         </tbody>
                     </table>
                     <button type="button" (click)="addExercise()" class="btn btn-primary" style="float:right;">Add Exercise</button><br>
-                    <button type="button" (click)="saveWorkout()" class="btn btn-success">Save Workout</button>
+                    <button type="button" (click)="saveWorkout()" class="btn btn-success">Save Workout</button><br><br>
+                    <button type="button" class="btn btn-danger" (click)="openDialog()">Delete Workout</button>
+
                 </div><br>
                 <div class="alert alert-warning" *ngIf="errorMessage">
                     {{ errorMessage }}
                   </div>
             </form>
-        </div>
-        
+        </div>  
     </div>
 </div>
+
+

@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Exercise } from '../models/exercise.model';
 import { Workout } from '../models/workout.model';
 import { WorkoutService } from '../services/workout.service';
+import {MatDialog} from '@angular/material/dialog';
+import { DeleteConfirmationComponent } from './delete-confirmation/delete-confirmation.component';
 
 @Component({
   selector: 'app-view-workout',
@@ -19,7 +21,10 @@ export class ViewWorkoutComponent implements OnInit {
   title : string;
   updated : boolean = false;
 
-  constructor(private workoutService : WorkoutService, private route : ActivatedRoute, private router: Router) { }
+  constructor(private workoutService : WorkoutService, 
+    private route : ActivatedRoute, 
+    private router: Router,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     const workoutId = this.route.snapshot.paramMap.get('workoutId') as unknown as number;
@@ -100,8 +105,16 @@ export class ViewWorkoutComponent implements OnInit {
           this.errorMessage = "Please enter valid sets and reps.";
         }
     }
-
     }
   }
-}
 
+  openDialog() {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      this.workoutService.deleteWorkout(this.workout).subscribe(response => {
+      console.log(response);
+      this.router.navigate['/dashboard'];
+      });
+    })
+  }
+}

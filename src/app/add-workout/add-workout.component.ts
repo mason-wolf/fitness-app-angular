@@ -61,7 +61,7 @@ export class AddWorkoutComponent implements OnInit {
       // Format the date
       if (this.workout.title != null && this.exercises.length > 0) {
         if(!Date.parse(this.date)) {
-          const dateFormatted = formatDate(Date.now(), 'MM-dd-yyy', 'en-US');
+          const dateFormatted = formatDate(Date.now(), 'yyy-MM-dd', 'en-US');
           this.workout.date = dateFormatted;
         }
 
