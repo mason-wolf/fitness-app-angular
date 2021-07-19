@@ -4,3 +4,16 @@ a {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.fc .fc-col-header-cell-cushion {
+    display: inline-block;
+    color:#000;
+    padding: 2px 4px;
+}
+
+.fc .fc-daygrid-day-number {
+    position: relative;
+    z-index: 4;
+    padding: 4px;
+    color:#000;
+}

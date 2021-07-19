@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { WorkoutService } from '../services/workout.service';
 import { Workout } from '../models/workout.model';
 import { CalendarOptions } from '@fullcalendar/angular';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,12 +16,13 @@ export class DashboardComponent implements OnInit {
 
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
-    dateClick: this.handleDateClick.bind(this), // bind is important!
+    eventClick: this.handleEventClick.bind(this), 
     events: []
   }
 
-  handleDateClick(arg) {
-    console.log(arg);
+  handleEventClick(info) {
+  //  console.log(info.event._def.publicId);
+    this.router.navigate(["/view-workout/" + info.event._def.publicId]);
   }
 
   userId = sessionStorage.getItem("userId");
@@ -32,10 +34,14 @@ export class DashboardComponent implements OnInit {
   constructor(
     private workoutService : WorkoutService, 
     private httpClient : HttpClient, 
-    private authService : AuthService) {}
+    private authService : AuthService,
+    private router : Router) {
+      this.router.onSameUrlNavigation = 'reload';
+    }
   
   async getWorkouts() {
-    this.workoutService.getWorkoutsByUserId(this.userId as unknown as number).subscribe(data => {
+    
+    await this.workoutService.getWorkoutsByUserId(this.userId as unknown as number).subscribe(data => {
       this.loading = false;
       if (data != null) {
         this.userWorkouts = data;
@@ -45,7 +51,7 @@ export class DashboardComponent implements OnInit {
         });
 
         this.calendarOptions.events = this.workoutEvents;
-
+       // console.log(this.calendarOptions.events);
         if (this.userWorkouts.length == 0) {
           this.showWorkouts = false;
         }

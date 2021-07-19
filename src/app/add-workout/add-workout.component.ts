@@ -60,10 +60,17 @@ export class AddWorkoutComponent implements OnInit {
 
       // Format the date
       if (this.workout.title != null && this.exercises.length > 0) {
-        if(!Date.parse(this.date)) {
-          const dateFormatted = formatDate(Date.now(), 'yyy-MM-dd', 'en-US');
-          this.workout.date = dateFormatted;
+
+        let dateFormatted : string;
+        if (!Date.parse(this.date)) {
+          dateFormatted = formatDate(Date.now(), 'yyy-MM-dd', 'en-US');
         }
+        else {
+          dateFormatted = formatDate(this.date, 'yyy-MM-dd', 'en-US');
+        }
+
+          this.workout.date = dateFormatted;
+        
 
         // Check if sets and reps are valid numbers
         let validSetsReps = true;
@@ -77,7 +84,7 @@ export class AddWorkoutComponent implements OnInit {
         if (validSetsReps) {
           this.workout.exercises = this.exercises;
           this.workoutService.addWorkout(this.workout).subscribe(response => {
-          //  console.log(response);
+            console.log(response);
           });
          this.router.navigate(['/dashboard']);
         }

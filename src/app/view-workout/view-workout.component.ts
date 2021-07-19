@@ -26,9 +26,9 @@ export class ViewWorkoutComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     const workoutId = this.route.snapshot.paramMap.get('workoutId') as unknown as number;
-    this.workoutService.getWorkoutById(workoutId)
+    await this.workoutService.getWorkoutById(workoutId)
     .subscribe(response => {
         this.workout = response;
         this.title = this.workout.title;
@@ -83,7 +83,7 @@ export class ViewWorkoutComponent implements OnInit {
       // Format the date
       if (this.workout.title != null && this.exercises.length > 0) {
 
-          const dateFormatted = formatDate(this.date, 'MM-dd-yyy', 'en-US');
+          const dateFormatted = formatDate(this.date, 'yyy-MM-dd', 'en-US');
           this.workout.date = dateFormatted;
 
         // Check if sets and reps are valid numbers
@@ -113,7 +113,7 @@ export class ViewWorkoutComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.workoutService.deleteWorkout(this.workout).subscribe(response => {
       console.log(response);
-      this.router.navigate['/dashboard'];
+      this.router.navigate(['/dashboard']);
       });
     })
   }
